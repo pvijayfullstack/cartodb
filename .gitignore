@@ -74,3 +74,4 @@ doc/manual/build
 .vscode/
 /private_gears
 db/fake_data/csv_file_100mb.csv
+db/fake_data/csv_file_100mb.csv
