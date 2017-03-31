@@ -628,6 +628,11 @@ CartoDB::Application.routes.draw do
         delete 'users/:u_username', to: 'organization_users#destroy', as: :api_v2_organization_users_delete
         put    'users/:u_username', to: 'organization_users#update',  as: :api_v2_organization_users_update
       end
+
+      # EUMAPI GROUPS
+      scope 'organization/:id_or_name/' do
+        post   'groups', to: 'groups#create',  as: :api_v2_groups_create
+      end
     end
 
     scope 'v1/' do

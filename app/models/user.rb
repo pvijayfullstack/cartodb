@@ -412,7 +412,7 @@ class User < Sequel::Model
 
     # Delete the DB or the schema
     if has_organization
-      db_service.drop_organization_user(organization_id, !@org_id_for_org_wipe.nil?) unless error_happened
+      db_service.drop_organization_user(organization_id, !@org_id_for_org_wipe.nil?, @forceCascade==true) unless error_happened
     elsif ::User.where(database_name: database_name).count > 1
       raise CartoDB::BaseCartoDBError.new(
         'The user is not supposed to be in a organization but another user has the same database_name. Not dropping it')
@@ -429,6 +429,10 @@ class User < Sequel::Model
     $users_metadata.DEL(key) unless error_happened
 
     feature_flags_user.each(&:delete)
+  end
+
+  def forceCascade
+    @forceCascade = true
   end
 
   def delete_external_data_imports
